@@ -1,19 +1,7 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
 	import { Panel } from '$lib/components/common';
-	import {
-		HOTSPOTS,
-		CONFLICT_ZONES,
-		CHOKEPOINTS,
-		CABLE_LANDINGS,
-		NUCLEAR_SITES,
-		MILITARY_BASES,
-		OCEANS,
-		SANCTIONED_COUNTRY_IDS,
-		THREAT_COLORS,
-		WEATHER_CODES
-	} from '$lib/config/map';
-	import { CACHE_TTLS } from '$lib/config/api';
+	import { THREAT_COLORS } from '$lib/config/map';
 	import type { CustomMonitor } from '$lib/types';
 	import { newsLocations, type NewsLocation } from '$lib/stores/newsLocations';
 	import { llmSettings } from '$lib/stores/llm';
@@ -52,29 +40,29 @@
 	let tooltipPosition = $state({ left: 0, top: 0 });
 	let tooltipVisible = $state(false);
 
-	// Data cache for tooltips with TTL support
-	interface CacheEntry<T> {
-		data: T;
-		timestamp: number;
-	}
-	const dataCache: Record<string, CacheEntry<unknown>> = {};
+	const WEATHER_TTL_MS = 15 * 60 * 1000;
+	const dataCache: Record<string, { data: WeatherResult; timestamp: number }> = {};
 
-	function getCachedData<T>(key: string): T | null {
-		const entry = dataCache[key] as CacheEntry<T> | undefined;
+	interface WeatherResult {
+		temp: number | null;
+		wind: number | null;
+		condition: string;
+	}
+
+	function getCachedData(key: string): WeatherResult | null {
+		const entry = dataCache[key];
 		if (!entry) return null;
-		// Check if cache entry has expired
-		if (Date.now() - entry.timestamp > CACHE_TTLS.weather) {
+		if (Date.now() - entry.timestamp > WEATHER_TTL_MS) {
 			delete dataCache[key];
 			return null;
 		}
 		return entry.data;
 	}
 
-	function setCachedData<T>(key: string, data: T): void {
+	function setCachedData(key: string, data: WeatherResult): void {
 		dataCache[key] = { data, timestamp: Date.now() };
 	}
 
-	// Get local time at longitude
 	function getLocalTime(lon: number): string {
 		const now = new Date();
 		const utcHours = now.getUTCHours();
@@ -86,17 +74,9 @@
 		return `${localHours}:${utcMinutes.toString().padStart(2, '0')} ${ampm}`;
 	}
 
-	// Weather result type
-	interface WeatherResult {
-		temp: number | null;
-		wind: number | null;
-		condition: string;
-	}
-
-	// Fetch weather from Open-Meteo with TTL-based caching
 	async function getWeather(lat: number, lon: number): Promise<WeatherResult | null> {
 		const key = `weather_${lat}_${lon}`;
-		const cached = getCachedData<WeatherResult>(key);
+		const cached = getCachedData(key);
 		if (cached) return cached;
 
 		try {
@@ -105,13 +85,34 @@
 			);
 			const data = await res.json();
 			const temp = data.current?.temperature_2m;
-			const tempF = temp ? Math.round((temp * 9) / 5 + 32) : null;
+			const tempC = temp !== undefined ? Math.round(temp) : null;
 			const wind = data.current?.wind_speed_10m;
 			const code = data.current?.weather_code;
 			const result: WeatherResult = {
-				temp: tempF,
+				temp: tempC,
 				wind: wind ? Math.round(wind) : null,
-				condition: WEATHER_CODES[code] || '—'
+				condition:
+					code === 0
+						? '☀️ Clear'
+						: code === 1
+							? '🌤️ Mostly clear'
+							: code === 2
+								? '⛅ Partly cloudy'
+								: code === 3
+									? '☁️ Overcast'
+									: code === 45 || code === 48
+										? '🌫️ Fog'
+										: code === 51 || code === 53 || code === 55
+											? '🌧️ Drizzle'
+											: code === 61 || code === 63 || code === 65
+												? '🌧️ Rain'
+												: code === 71 || code === 73 || code === 75 || code === 77
+													? '🌨️ Snow'
+													: code === 80 || code === 81 || code === 82
+														? '🌧️ Showers'
+														: code === 95 || code === 96 || code === 99
+															? '⛈️ Thunderstorm'
+															: '—'
 			};
 			setCachedData(key, result);
 			return result;
@@ -186,28 +187,24 @@
 		tooltipContent = null;
 	}
 
-	// Build enhanced tooltip with weather
-	async function showEnhancedTooltip(
+	async function showNewsTooltip(
 		event: MouseEvent,
-		_name: string,
-		lat: number,
-		lon: number,
-		desc: string,
+		loc: NewsLocation,
 		color: string
 	): Promise<void> {
-		const localTime = getLocalTime(lon);
-		const lines = [`🕐 Local: ${localTime}`];
-		showTooltip(event, desc, color, lines);
+		const localTime = getLocalTime(loc.lon);
+		const lines = [`🕐 Local: ${localTime}`, ...loc.headlines.slice(0, 3)];
+		showTooltip(event, `📰 ${loc.name} (${loc.newsCount} news)`, color, lines);
 
-		// Fetch weather asynchronously
-		const weather = await getWeather(lat, lon);
+		const weather = await getWeather(loc.lat, loc.lon);
 		if (weather && tooltipVisible) {
 			tooltipContent = {
-				title: desc,
+				title: `📰 ${loc.name} (${loc.newsCount} news)`,
 				color,
 				lines: [
 					`🕐 Local: ${localTime}`,
-					`${weather.condition} ${weather.temp}°F, ${weather.wind}mph`
+					`${weather.condition} ${weather.temp}°C, ${weather.wind}mph`,
+					...loc.headlines.slice(0, 3)
 				]
 			};
 		}
@@ -278,12 +275,8 @@
 				.append('path')
 				.attr('class', 'country')
 				.attr('d', path as unknown as string)
-				.attr('fill', (d: GeoJSON.Feature) =>
-					SANCTIONED_COUNTRY_IDS.includes(+(d.id || 0)) ? '#2a1a1a' : '#0f3028'
-				)
-				.attr('stroke', (d: GeoJSON.Feature) =>
-					SANCTIONED_COUNTRY_IDS.includes(+(d.id || 0)) ? '#4a2020' : '#1a5040'
-				)
+				.attr('fill', '#0f3028')
+				.attr('stroke', '#1a5040')
 				.attr('stroke-width', 0.5);
 
 			// Draw graticule
@@ -297,23 +290,6 @@
 				.attr('stroke-width', 0.3)
 				.attr('stroke-dasharray', '2,2');
 
-			// Draw ocean labels
-			OCEANS.forEach((o) => {
-				const [x, y] = projection([o.lon, o.lat]) || [0, 0];
-				if (x && y) {
-					mapGroup
-						.append('text')
-						.attr('x', x)
-						.attr('y', y)
-						.attr('fill', '#1a4a40')
-						.attr('font-size', '10px')
-						.attr('font-family', 'monospace')
-						.attr('text-anchor', 'middle')
-						.attr('opacity', 0.6)
-						.text(o.name);
-				}
-			});
-
 			// Draw day/night terminator
 			const terminatorPoints = calculateTerminator();
 			mapGroup
@@ -322,170 +298,6 @@
 				.attr('d', path as unknown as string)
 				.attr('fill', 'rgba(0,0,0,0.3)')
 				.attr('stroke', 'none');
-
-			// Draw conflict zones
-			CONFLICT_ZONES.forEach((zone) => {
-				mapGroup
-					.append('path')
-					.datum({ type: 'Polygon', coordinates: [zone.coords] } as GeoJSON.Polygon)
-					.attr('d', path as unknown as string)
-					.attr('fill', zone.color)
-					.attr('fill-opacity', 0.15)
-					.attr('stroke', zone.color)
-					.attr('stroke-width', 0.5)
-					.attr('stroke-opacity', 0.4);
-			});
-
-			// Draw chokepoints
-			CHOKEPOINTS.forEach((cp) => {
-				const [x, y] = projection([cp.lon, cp.lat]) || [0, 0];
-				if (x && y) {
-					mapGroup
-						.append('rect')
-						.attr('x', x - 4)
-						.attr('y', y - 4)
-						.attr('width', 8)
-						.attr('height', 8)
-						.attr('fill', '#00aaff')
-						.attr('opacity', 0.8)
-						.attr('transform', `rotate(45,${x},${y})`);
-					mapGroup
-						.append('text')
-						.attr('x', x + 8)
-						.attr('y', y + 3)
-						.attr('fill', '#00aaff')
-						.attr('font-size', '7px')
-						.attr('font-family', 'monospace')
-						.text(cp.name);
-					mapGroup
-						.append('circle')
-						.attr('cx', x)
-						.attr('cy', y)
-						.attr('r', 10)
-						.attr('fill', 'transparent')
-						.attr('class', 'hotspot-hit')
-						.on('mouseenter', (event: MouseEvent) => showTooltip(event, `⬥ ${cp.desc}`, '#00aaff'))
-						.on('mousemove', moveTooltip)
-						.on('mouseleave', hideTooltip);
-				}
-			});
-
-			// Draw cable landings
-			CABLE_LANDINGS.forEach((cl) => {
-				const [x, y] = projection([cl.lon, cl.lat]) || [0, 0];
-				if (x && y) {
-					mapGroup
-						.append('circle')
-						.attr('cx', x)
-						.attr('cy', y)
-						.attr('r', 3)
-						.attr('fill', 'none')
-						.attr('stroke', '#aa44ff')
-						.attr('stroke-width', 1.5);
-					mapGroup
-						.append('circle')
-						.attr('cx', x)
-						.attr('cy', y)
-						.attr('r', 10)
-						.attr('fill', 'transparent')
-						.attr('class', 'hotspot-hit')
-						.on('mouseenter', (event: MouseEvent) => showTooltip(event, `◎ ${cl.desc}`, '#aa44ff'))
-						.on('mousemove', moveTooltip)
-						.on('mouseleave', hideTooltip);
-				}
-			});
-
-			// Draw nuclear sites
-			NUCLEAR_SITES.forEach((ns) => {
-				const [x, y] = projection([ns.lon, ns.lat]) || [0, 0];
-				if (x && y) {
-					mapGroup
-						.append('circle')
-						.attr('cx', x)
-						.attr('cy', y)
-						.attr('r', 2)
-						.attr('fill', '#ffff00');
-					mapGroup
-						.append('circle')
-						.attr('cx', x)
-						.attr('cy', y)
-						.attr('r', 5)
-						.attr('fill', 'none')
-						.attr('stroke', '#ffff00')
-						.attr('stroke-width', 1)
-						.attr('stroke-dasharray', '3,3');
-					mapGroup
-						.append('circle')
-						.attr('cx', x)
-						.attr('cy', y)
-						.attr('r', 10)
-						.attr('fill', 'transparent')
-						.attr('class', 'hotspot-hit')
-						.on('mouseenter', (event: MouseEvent) => showTooltip(event, `☢ ${ns.desc}`, '#ffff00'))
-						.on('mousemove', moveTooltip)
-						.on('mouseleave', hideTooltip);
-				}
-			});
-
-			// Draw military bases
-			MILITARY_BASES.forEach((mb) => {
-				const [x, y] = projection([mb.lon, mb.lat]) || [0, 0];
-				if (x && y) {
-					const starPath = `M${x},${y - 5} L${x + 1.5},${y - 1.5} L${x + 5},${y - 1.5} L${x + 2.5},${y + 1} L${x + 3.5},${y + 5} L${x},${y + 2.5} L${x - 3.5},${y + 5} L${x - 2.5},${y + 1} L${x - 5},${y - 1.5} L${x - 1.5},${y - 1.5} Z`;
-					mapGroup.append('path').attr('d', starPath).attr('fill', '#ff00ff').attr('opacity', 0.8);
-					mapGroup
-						.append('circle')
-						.attr('cx', x)
-						.attr('cy', y)
-						.attr('r', 10)
-						.attr('fill', 'transparent')
-						.attr('class', 'hotspot-hit')
-						.on('mouseenter', (event: MouseEvent) => showTooltip(event, `★ ${mb.desc}`, '#ff00ff'))
-						.on('mousemove', moveTooltip)
-						.on('mouseleave', hideTooltip);
-				}
-			});
-
-			// Draw hotspots
-			HOTSPOTS.forEach((h) => {
-				const [x, y] = projection([h.lon, h.lat]) || [0, 0];
-				if (x && y) {
-					const color = THREAT_COLORS[h.level];
-					// Pulsing circle
-					mapGroup
-						.append('circle')
-						.attr('cx', x)
-						.attr('cy', y)
-						.attr('r', 6)
-						.attr('fill', color)
-						.attr('fill-opacity', 0.3)
-						.attr('class', 'pulse');
-					// Inner dot
-					mapGroup.append('circle').attr('cx', x).attr('cy', y).attr('r', 3).attr('fill', color);
-					// Label
-					mapGroup
-						.append('text')
-						.attr('x', x + 8)
-						.attr('y', y + 3)
-						.attr('fill', color)
-						.attr('font-size', '8px')
-						.attr('font-family', 'monospace')
-						.text(h.name);
-					// Hit area
-					mapGroup
-						.append('circle')
-						.attr('cx', x)
-						.attr('cy', y)
-						.attr('r', 12)
-						.attr('fill', 'transparent')
-						.attr('class', 'hotspot-hit')
-						.on('mouseenter', (event: MouseEvent) =>
-							showEnhancedTooltip(event, h.name, h.lat, h.lon, h.desc, color)
-						)
-						.on('mousemove', moveTooltip)
-						.on('mouseleave', hideTooltip);
-				}
-			});
 
 			// Draw custom monitors with locations
 			drawMonitors();
@@ -591,14 +403,7 @@
 					.attr('r', 12)
 					.attr('fill', 'transparent')
 					.attr('class', 'hotspot-hit news-location-marker')
-					.on('mouseenter', (event: MouseEvent) =>
-						showTooltip(
-							event,
-							`📰 ${loc.name} (${loc.newsCount} news)`,
-							color,
-							loc.headlines.slice(0, 3)
-						)
-					)
+					.on('mouseenter', (event: MouseEvent) => showNewsTooltip(event, loc, color))
 					.on('mousemove', moveTooltip)
 					.on('mouseleave', hideTooltip);
 			}
@@ -655,6 +460,16 @@
 		if (locations && mapGroup && projection) {
 			drawNewsLocations(locations);
 		}
+	});
+
+	$effect(() => {
+		const hasKey = !!$llmSettings.apiKey;
+		const headlines = $allNewsItems;
+		const { loading: extracting, lastExtracted } = $newsLocations;
+		if (!hasKey || extracting) return;
+		if (headlines.length === 0) return;
+		if (lastExtracted && Date.now() - lastExtracted < 10 * 60 * 1000) return;
+		handleExtractLocations();
 	});
 
 	onMount(() => {
