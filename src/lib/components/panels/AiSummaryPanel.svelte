@@ -116,7 +116,7 @@ Format the output as a bulleted list with bold key terms. Keep it under 300 word
 	}
 </script>
 
-<Panel id="ai_summary" title="AI 戰情摘要 (SitRep)">
+<Panel id="ai_summary" title="AI Summary 戰情摘要 (SitRep)">
 	<div class="summary-content">
 		{#if !$llmSettings.apiKey}
 			<div class="empty-state">

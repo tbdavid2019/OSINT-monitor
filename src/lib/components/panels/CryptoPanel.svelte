@@ -9,7 +9,7 @@
 	const count = $derived(items.length);
 </script>
 
-<Panel id="whales" title="Crypto" {count} {loading} {error}>
+<Panel id="whales" title="Crypto 加密貨幣" {count} {loading} {error}>
 	{#if items.length === 0 && !loading && !error}
 		<div class="empty-state">No crypto data available</div>
 	{:else}

@@ -9,7 +9,7 @@
 	const rankings = $derived(results.characters);
 </script>
 
-<Panel id="mainchar" title="Main Character">
+<Panel id="mainchar" title="Main Character 主角">
 	{#if !topChar}
 		<div class="empty-state">No data yet</div>
 	{:else}

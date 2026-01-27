@@ -8,7 +8,7 @@
 	const count = $derived(items.length);
 </script>
 
-<Panel id="markets" title="Markets" {count} {loading} {error}>
+<Panel id="markets" title="Markets 市場" {count} {loading} {error}>
 	{#if items.length === 0 && !loading && !error}
 		<div class="empty-state">No market data available</div>
 	{:else}

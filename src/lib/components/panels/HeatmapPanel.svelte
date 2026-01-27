@@ -7,7 +7,7 @@
 	const error = $derived($sectors.error);
 </script>
 
-<Panel id="heatmap" title="Sector Heatmap" {loading} {error}>
+<Panel id="heatmap" title="Sector Heatmap 產業熱力圖" {loading} {error}>
 	{#if items.length === 0 && !loading && !error}
 		<div class="empty-state">No sector data available</div>
 	{:else}

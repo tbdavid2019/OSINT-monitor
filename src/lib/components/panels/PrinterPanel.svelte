@@ -19,7 +19,7 @@
 	const statusClass = $derived(isExpanding ? 'critical' : 'monitoring');
 </script>
 
-<Panel id="printer" title="Money Printer" {status} {statusClass} {loading} {error}>
+<Panel id="printer" title="Money Printer 印鈔機" {status} {statusClass} {loading} {error}>
 	{#if !data && !loading && !error}
 		<div class="empty-state">No Fed data available</div>
 	{:else if data}

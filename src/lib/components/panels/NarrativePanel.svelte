@@ -42,7 +42,7 @@
 	}
 </script>
 
-<Panel id="narrative" title="Narrative Tracker" {loading} {error}>
+<Panel id="narrative" title="Narrative Tracker 敘事追蹤" {loading} {error}>
 	{#if news.length === 0 && !loading && !error}
 		<div class="empty-state">Insufficient data for narrative analysis</div>
 	{:else if analysis}

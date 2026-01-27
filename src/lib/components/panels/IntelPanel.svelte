@@ -28,7 +28,8 @@
 		if (s.includes('bellingcat')) return 'osint';
 		if (s.includes('defense') || s.includes('war') || s.includes('military')) return 'defense';
 		if (s.includes('diplomat') || s.includes('monitor')) return 'regional';
-		if (s.includes('white house') || s.includes('fed') || s.includes('sec') || s.includes('dod')) return 'govt';
+		if (s.includes('white house') || s.includes('fed') || s.includes('sec') || s.includes('dod'))
+			return 'govt';
 		return 'think-tank';
 	}
 
@@ -63,7 +64,7 @@
 	}
 </script>
 
-<Panel id="intel" title="Intel Feed" {count} {loading} {error}>
+<Panel id="intel" title="Intel Feed 情報動態" {count} {loading} {error}>
 	{#if items.length === 0 && !loading && !error}
 		<div class="empty-state">No intel available</div>
 	{:else}

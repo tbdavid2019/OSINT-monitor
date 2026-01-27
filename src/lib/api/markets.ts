@@ -59,7 +59,15 @@ const INDEX_ETF_MAP: Record<string, string> = {
 	'^DJI': 'DIA', // Dow Jones -> SPDR Dow Jones ETF
 	'^GSPC': 'SPY', // S&P 500 -> SPDR S&P 500 ETF
 	'^IXIC': 'QQQ', // NASDAQ -> Invesco QQQ (NASDAQ-100)
-	'^RUT': 'IWM' // Russell 2000 -> iShares Russell 2000 ETF
+	'^RUT': 'IWM', // Russell 2000 -> iShares Russell 2000 ETF
+	'^TWII': 'EWT', // Taiwan Weighted -> iShares MSCI Taiwan ETF
+	'^N225': 'EWJ', // Nikkei 225 -> iShares MSCI Japan ETF
+	'^HSI': 'EWH', // Hang Seng -> iShares MSCI Hong Kong ETF
+	'^KS11': 'EWY', // KOSPI -> iShares MSCI South Korea ETF
+	'^FTSE': 'EWU', // FTSE 100 -> iShares MSCI United Kingdom ETF
+	'^GDAXI': 'EWG', // DAX -> iShares MSCI Germany ETF
+	'^FCHI': 'EWQ', // CAC 40 -> iShares MSCI France ETF
+	'^AXJO': 'EWA' // ASX 200 -> iShares MSCI Australia ETF
 };
 
 /**
@@ -170,8 +178,7 @@ export async function fetchIndices(): Promise<MarketItem[]> {
  * Fetch sector performance from Finnhub (using sector ETFs)
  */
 export async function fetchSectorPerformance(): Promise<SectorPerformance[]> {
-	const createEmptySectors = () =>
-		SECTORS.map((s) => createEmptySectorItem(s.symbol, s.name));
+	const createEmptySectors = () => SECTORS.map((s) => createEmptySectorItem(s.symbol, s.name));
 
 	if (!hasFinnhubApiKey()) {
 		logger.warn('Markets API', 'Finnhub API key not configured');
@@ -255,9 +262,6 @@ interface AllMarketsData {
 	commodities: MarketItem[];
 }
 
-/**
- * Fetch all market data
- */
 export async function fetchAllMarkets(): Promise<AllMarketsData> {
 	const [crypto, indices, sectors, commodities] = await Promise.all([
 		fetchCryptoPrices(),

@@ -244,31 +244,31 @@
 			<!-- News Panels -->
 			{#if isPanelVisible('politics')}
 				<div class="panel-slot">
-					<NewsPanel category="politics" panelId="politics" title="Politics" />
+					<NewsPanel category="politics" panelId="politics" title="Politics 政治" />
 				</div>
 			{/if}
 
 			{#if isPanelVisible('tech')}
 				<div class="panel-slot">
-					<NewsPanel category="tech" panelId="tech" title="Tech" />
+					<NewsPanel category="tech" panelId="tech" title="Tech 科技" />
 				</div>
 			{/if}
 
 			{#if isPanelVisible('finance')}
 				<div class="panel-slot">
-					<NewsPanel category="finance" panelId="finance" title="Finance" />
+					<NewsPanel category="finance" panelId="finance" title="Finance 金融" />
 				</div>
 			{/if}
 
 			{#if isPanelVisible('gov')}
 				<div class="panel-slot">
-					<NewsPanel category="gov" panelId="gov" title="Government" />
+					<NewsPanel category="gov" panelId="gov" title="Government 政府" />
 				</div>
 			{/if}
 
 			{#if isPanelVisible('ai')}
 				<div class="panel-slot">
-					<NewsPanel category="ai" panelId="ai" title="AI" />
+					<NewsPanel category="ai" panelId="ai" title="AI 人工智慧" />
 				</div>
 			{/if}
 
@@ -343,7 +343,7 @@
 					<SituationPanel
 						panelId="venezuela"
 						config={{
-							title: 'Venezuela Watch',
+							title: 'Venezuela Watch 委內瑞拉監控',
 							subtitle: 'Humanitarian crisis monitoring',
 							criticalKeywords: ['maduro', 'caracas', 'venezuela', 'guaido']
 						}}
@@ -361,7 +361,7 @@
 					<SituationPanel
 						panelId="greenland"
 						config={{
-							title: 'Greenland Watch',
+							title: 'Greenland Watch 格陵蘭監控',
 							subtitle: 'Arctic geopolitics monitoring',
 							criticalKeywords: ['greenland', 'arctic', 'nuuk', 'denmark']
 						}}
@@ -379,7 +379,7 @@
 					<SituationPanel
 						panelId="iran"
 						config={{
-							title: 'Iran Crisis',
+							title: 'Iran Crisis 伊朗危機',
 							subtitle: 'Revolution protests, regime instability & nuclear program',
 							criticalKeywords: [
 								'protest',

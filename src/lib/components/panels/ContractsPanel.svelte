@@ -26,7 +26,7 @@
 	}
 </script>
 
-<Panel id="contracts" title="Gov Contracts" {count} {loading} {error}>
+<Panel id="contracts" title="Gov Contracts 政府合約" {count} {loading} {error}>
 	{#if contracts.length === 0 && !loading && !error}
 		<div class="empty-state">No contracts available</div>
 	{:else}

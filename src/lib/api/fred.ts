@@ -125,7 +125,6 @@ async function fetchCPI(): Promise<EconomicIndicator> {
 	}
 
 	try {
-		// Fetch 14 observations: current + 12 months ago, plus previous month + 13 months ago
 		const url = `${FRED_BASE_URL}/series/observations?series_id=${seriesId}&api_key=${FRED_API_KEY}&file_type=json&sort_order=desc&limit=14`;
 		const response = await fetch(url);
 

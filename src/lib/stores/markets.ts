@@ -6,7 +6,6 @@ import { writable, derived, get } from 'svelte/store';
 import type { MarketItem, CryptoItem, SectorPerformance } from '$lib/types';
 
 export interface MarketsState {
-	// Stock indices (DOW, S&P, NASDAQ, Russell)
 	indices: {
 		items: MarketItem[];
 		loading: boolean;
@@ -14,7 +13,6 @@ export interface MarketsState {
 		lastUpdated: number | null;
 	};
 
-	// Sector ETFs (XLK, XLF, etc.)
 	sectors: {
 		items: SectorPerformance[];
 		loading: boolean;
@@ -22,7 +20,6 @@ export interface MarketsState {
 		lastUpdated: number | null;
 	};
 
-	// Commodities (Gold, Oil, VIX, etc.)
 	commodities: {
 		items: MarketItem[];
 		loading: boolean;
@@ -30,7 +27,6 @@ export interface MarketsState {
 		lastUpdated: number | null;
 	};
 
-	// Crypto (BTC, ETH, SOL)
 	crypto: {
 		items: CryptoItem[];
 		loading: boolean;
@@ -163,9 +159,6 @@ function createMarketsStore() {
 			}));
 		},
 
-		/**
-		 * Update a single market item
-		 */
 		updateItem(category: 'indices' | 'commodities', symbol: string, updates: Partial<MarketItem>) {
 			update((state) => {
 				const items = state[category].items as MarketItem[];
@@ -269,7 +262,6 @@ export const sectors = derived(markets, ($markets) => $markets.sectors);
 export const commodities = derived(markets, ($markets) => $markets.commodities);
 export const crypto = derived(markets, ($markets) => $markets.crypto);
 
-// Market status derived stores
 export const isMarketsLoading = derived(
 	markets,
 	($markets) =>

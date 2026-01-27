@@ -46,7 +46,7 @@
 	}
 </script>
 
-<Panel id="correlation" title="Pattern Analysis" {loading} {error}>
+<Panel id="correlation" title="Pattern Analysis 關聯分析" {loading} {error}>
 	{#if news.length === 0 && !loading && !error}
 		<div class="empty-state">Insufficient data for analysis</div>
 	{:else if analysis}

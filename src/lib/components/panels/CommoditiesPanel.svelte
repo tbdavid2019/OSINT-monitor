@@ -27,7 +27,7 @@
 
 <Panel
 	id="commodities"
-	title="Commodities / VIX"
+	title="Commodities / VIX 大宗商品 / VIX"
 	status={vixStatus}
 	statusClass={vixClass}
 	{loading}

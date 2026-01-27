@@ -26,7 +26,7 @@
 
 	async function handleFetchModels() {
 		if (!$llmSettings.apiKey) {
-			fetchError = 'API Key is required';
+			fetchError = 'API Key is required 需要 API 金鑰';
 			return;
 		}
 
@@ -44,14 +44,14 @@
 	}
 </script>
 
-<Modal {open} title="Settings" {onClose}>
+<Modal {open} title="Settings 設定" {onClose}>
 	<div class="settings-sections">
 		<section class="settings-section">
-			<h3 class="section-title">AI Intelligence</h3>
-			<p class="section-desc">Configure LLM for automated analysis</p>
+			<h3 class="section-title">AI Intelligence AI 智能</h3>
+			<p class="section-desc">Configure LLM for automated analysis 設定 LLM 進行自動分析</p>
 
 			<div class="input-group">
-				<label for="llm-base-url">Base URL</label>
+				<label for="llm-base-url">Base URL 基本網址</label>
 				<input
 					id="llm-base-url"
 					type="text"
@@ -62,7 +62,7 @@
 			</div>
 
 			<div class="input-group">
-				<label for="llm-api-key">API Key</label>
+				<label for="llm-api-key">API Key API 金鑰</label>
 				<input
 					id="llm-api-key"
 					type="password"
@@ -74,9 +74,9 @@
 
 			<div class="input-group">
 				<div class="model-header">
-					<label for="llm-model">Model</label>
+					<label for="llm-model">Model 模型</label>
 					<button class="fetch-btn" onclick={handleFetchModels} disabled={isFetchingModels}>
-						{isFetchingModels ? 'Fetching...' : 'Fetch Models'}
+						{isFetchingModels ? 'Fetching... 取得中' : 'Fetch Models 取得模型'}
 					</button>
 				</div>
 
@@ -100,8 +100,10 @@
 		</section>
 
 		<section class="settings-section">
-			<h3 class="section-title">Enabled Panels</h3>
-			<p class="section-desc">Toggle panels on/off to customize your dashboard</p>
+			<h3 class="section-title">Enabled Panels 啟用面板</h3>
+			<p class="section-desc">
+				Toggle panels on/off to customize your dashboard 開關面板自訂儀表板
+			</p>
 
 			<div class="panels-grid">
 				{#each Object.entries(PANELS) as [id, config]}
@@ -121,12 +123,16 @@
 		</section>
 
 		<section class="settings-section">
-			<h3 class="section-title">Dashboard</h3>
+			<h3 class="section-title">Dashboard 儀表板</h3>
 			{#if onReconfigure}
-				<button class="reconfigure-btn" onclick={onReconfigure}> Reconfigure Dashboard </button>
-				<p class="btn-hint">Choose a preset profile for your panels</p>
+				<button class="reconfigure-btn" onclick={onReconfigure}>
+					Reconfigure Dashboard 重新配置儀表板
+				</button>
+				<p class="btn-hint">Choose a preset profile for your panels 選擇預設面板配置</p>
 			{/if}
-			<button class="reset-btn" onclick={handleResetPanels}> Reset All Settings </button>
+			<button class="reset-btn" onclick={handleResetPanels}>
+				Reset All Settings 重設全部設定
+			</button>
 		</section>
 	</div>
 </Modal>

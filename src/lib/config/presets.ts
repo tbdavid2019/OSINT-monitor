@@ -98,7 +98,9 @@ export const PRESETS: Record<string, Preset> = {
 			'leaders',
 			'intel',
 			'correlation',
-			'narrative'
+			'narrative',
+			'fed',
+			'ai_summary'
 		]
 	}
 };
