@@ -3,7 +3,7 @@
  */
 
 import { writable, derived, get } from 'svelte/store';
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 // Refresh stages (matches existing 3-stage approach)
 export type RefreshStage = 'critical' | 'secondary' | 'tertiary';
@@ -68,7 +68,11 @@ const DEFAULT_AUTO_REFRESH_INTERVAL = 60 * 60 * 1000; // 1 hour
 const STORAGE_KEY = 'refreshSettings';
 
 // Load settings from localStorage
-function loadSettings(): { autoRefreshEnabled: boolean; autoRefreshInterval: number; lastRefresh: number | null } {
+function loadSettings(): {
+	autoRefreshEnabled: boolean;
+	autoRefreshInterval: number;
+	lastRefresh: number | null;
+} {
 	if (!browser) {
 		return {
 			autoRefreshEnabled: true,

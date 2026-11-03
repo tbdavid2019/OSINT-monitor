@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Panel } from '$lib/components/common';
-	import { crypto } from '$lib/stores';
-	import { formatCurrency, formatPercentChange, getChangeClass } from '$lib/utils';
+	import { Panel } from '#lib/components/common/index.js';
+	import { crypto } from '#lib/stores/index.js';
+	import { formatCurrency, formatPercentChange, getChangeClass } from '#lib/utils/index.js';
 
 	const items = $derived($crypto.items);
 	const loading = $derived($crypto.loading);

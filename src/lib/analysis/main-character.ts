@@ -2,8 +2,8 @@
  * Main Character analysis - tracks prominent figures in news
  */
 
-import type { NewsItem } from '$lib/types';
-import { PERSON_PATTERNS } from '$lib/config/analysis';
+import type { NewsItem } from '#lib/types/index.js';
+import { PERSON_PATTERNS } from '#lib/config/analysis.js';
 
 export interface MainCharacterEntry {
 	name: string;

@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Panel } from '$lib/components/common';
-	import { THREAT_COLORS } from '$lib/config/map';
-	import type { CustomMonitor } from '$lib/types';
-	import { newsLocations, type NewsLocation } from '$lib/stores/newsLocations';
-	import { llmSettings } from '$lib/stores/llm';
-	import { allNewsItems } from '$lib/stores/news';
-	import { extractLocationsFromNews } from '$lib/services/llm';
+	import { Panel } from '#lib/components/common/index.js';
+	import { THREAT_COLORS } from '#lib/config/map.js';
+	import type { CustomMonitor } from '#lib/types/index.js';
+	import { newsLocations, type NewsLocation } from '#lib/stores/newsLocations.js';
+	import { llmSettings } from '#lib/stores/llm.js';
+	import { allNewsItems } from '#lib/stores/news.js';
+	import { extractLocationsFromNews } from '#lib/services/llm.js';
 
 	interface Props {
 		monitors?: CustomMonitor[];

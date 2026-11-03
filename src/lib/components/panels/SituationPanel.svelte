@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Panel } from '$lib/components/common';
-	import { timeAgo } from '$lib/utils';
-	import type { PanelId } from '$lib/config';
-	import type { NewsItem } from '$lib/types';
+	import { Panel } from '#lib/components/common/index.js';
+	import { timeAgo } from '#lib/utils/index.js';
+	import type { PanelId } from '#lib/config/index.js';
+	import type { NewsItem } from '#lib/types/index.js';
 
 	interface SituationConfig {
 		title: string;

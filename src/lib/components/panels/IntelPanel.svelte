@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Panel, Badge } from '$lib/components/common';
-	import { getRelativeTime } from '$lib/utils';
-	import { intelNews } from '$lib/stores';
-	import type { NewsItem } from '$lib/types';
+	import { Panel, Badge } from '#lib/components/common/index.js';
+	import { getRelativeTime } from '#lib/utils/index.js';
+	import { intelNews } from '#lib/stores/index.js';
+	import type { NewsItem } from '#lib/types/index.js';
 
 	type SourceType = 'osint' | 'govt' | 'think-tank' | 'defense' | 'regional' | 'cyber';
 

@@ -5,7 +5,7 @@
  * Get your free API key at: https://fred.stlouisfed.org/docs/api/api_key.html
  */
 
-import { FRED_API_KEY, FRED_BASE_URL, logger, fetchWithProxy } from '$lib/config/api';
+import { FRED_API_KEY, FRED_BASE_URL, logger, fetchWithProxy } from '#lib/config/api.js';
 
 export interface FredObservation {
 	date: string;

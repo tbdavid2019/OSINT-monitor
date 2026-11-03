@@ -1,8 +1,8 @@
 <script lang="ts">
-	import type { NewsItem } from '$lib/types';
-	import { timeAgo } from '$lib/utils';
-	import { llmSettings } from '$lib/stores/llm';
-	import { generateSummary } from '$lib/services/llm';
+	import type { NewsItem } from '#lib/types/index.js';
+	import { timeAgo } from '#lib/utils/index.js';
+	import { llmSettings } from '#lib/stores/llm.js';
+	import { generateSummary } from '#lib/services/llm.js';
 
 	interface Props {
 		item: NewsItem;

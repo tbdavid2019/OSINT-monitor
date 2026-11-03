@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Panel, Badge } from '$lib/components/common';
-	import { getRelativeTime } from '$lib/utils';
-	import { fedNews, fedIndicators, fedVideos } from '$lib/stores';
-	import { isFredConfigured } from '$lib/api/fred';
-	import type { EconomicIndicator } from '$lib/api/fred';
+	import { Panel, Badge } from '#lib/components/common/index.js';
+	import { getRelativeTime } from '#lib/utils/index.js';
+	import { fedNews, fedIndicators, fedVideos } from '#lib/stores/index.js';
+	import { isFredConfigured } from '#lib/api/fred.js';
+	import type { EconomicIndicator } from '#lib/api/fred.js';
 
 	// Store state
 	const newsState = $derived($fedNews);

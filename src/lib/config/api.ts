@@ -2,7 +2,7 @@
  * API Configuration
  */
 
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 
 /**
  * Finnhub API key

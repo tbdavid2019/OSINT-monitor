@@ -5,9 +5,9 @@
  * Free tier: 60 calls/minute
  */
 
-import { INDICES, SECTORS, COMMODITIES, CRYPTO } from '$lib/config/markets';
-import type { MarketItem, SectorPerformance, CryptoItem } from '$lib/types';
-import { fetchWithProxy, logger, FINNHUB_API_KEY, FINNHUB_BASE_URL } from '$lib/config/api';
+import { INDICES, SECTORS, COMMODITIES, CRYPTO } from '#lib/config/markets.js';
+import type { MarketItem, SectorPerformance, CryptoItem } from '#lib/types/index.js';
+import { fetchWithProxy, logger, FINNHUB_API_KEY, FINNHUB_BASE_URL } from '#lib/config/api.js';
 
 interface CoinGeckoPrice {
 	usd: number;

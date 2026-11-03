@@ -2,8 +2,8 @@
  * Correlation engine - analyzes patterns across news items
  */
 
-import type { NewsItem } from '$lib/types';
-import { CORRELATION_TOPICS, type CorrelationTopic } from '$lib/config/analysis';
+import type { NewsItem } from '#lib/types/index.js';
+import { CORRELATION_TOPICS, type CorrelationTopic } from '#lib/config/analysis.js';
 
 // Types for correlation results
 export interface EmergingPattern {

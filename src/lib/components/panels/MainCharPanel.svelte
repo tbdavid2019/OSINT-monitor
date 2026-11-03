@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Panel } from '$lib/components/common';
-	import { allNewsItems } from '$lib/stores';
-	import { calculateMainCharacter, type MainCharacterResults } from '$lib/analysis';
+	import { Panel } from '#lib/components/common/index.js';
+	import { allNewsItems } from '#lib/stores/index.js';
+	import { calculateMainCharacter, type MainCharacterResults } from '#lib/analysis/index.js';
 
 	// Calculate main character from all news (reactive via derived store)
 	const results: MainCharacterResults = $derived(calculateMainCharacter($allNewsItems));

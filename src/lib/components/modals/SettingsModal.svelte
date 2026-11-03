@@ -1,9 +1,9 @@
 <script lang="ts">
 	import Modal from './Modal.svelte';
-	import { settings } from '$lib/stores';
-	import { llmSettings } from '$lib/stores/llm';
-	import { fetchModels } from '$lib/services/llm';
-	import { PANELS, type PanelId } from '$lib/config';
+	import { settings } from '#lib/stores/index.js';
+	import { llmSettings } from '#lib/stores/llm.js';
+	import { fetchModels } from '#lib/services/llm.js';
+	import { PANELS, type PanelId } from '#lib/config/index.js';
 
 	interface Props {
 		open: boolean;

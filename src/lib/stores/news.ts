@@ -3,8 +3,8 @@
  */
 
 import { writable, derived, get } from 'svelte/store';
-import type { NewsItem, NewsCategory } from '$lib/types';
-import { containsAlertKeyword, detectRegion, detectTopics } from '$lib/config';
+import type { NewsItem, NewsCategory } from '#lib/types/index.js';
+import { containsAlertKeyword, detectRegion, detectTopics } from '#lib/config/index.js';
 
 export interface CategoryState {
 	items: NewsItem[];

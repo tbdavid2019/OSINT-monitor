@@ -3,7 +3,7 @@
  */
 
 import { writable, derived, get } from 'svelte/store';
-import type { MarketItem, CryptoItem, SectorPerformance } from '$lib/types';
+import type { MarketItem, CryptoItem, SectorPerformance } from '#lib/types/index.js';
 
 export interface MarketsState {
 	indices: {

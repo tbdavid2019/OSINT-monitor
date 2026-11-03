@@ -1,7 +1,11 @@
 <script lang="ts">
 	import { onMount } from 'svelte';
-	import { Header, Dashboard } from '$lib/components/layout';
-	import { SettingsModal, MonitorFormModal, OnboardingModal } from '$lib/components/modals';
+	import { Header, Dashboard } from '#lib/components/layout/index.js';
+	import {
+		SettingsModal,
+		MonitorFormModal,
+		OnboardingModal
+	} from '#lib/components/modals/index.js';
 	import {
 		NewsPanel,
 		MarketsPanel,
@@ -23,7 +27,7 @@
 		PrinterPanel,
 		FedPanel,
 		AiSummaryPanel
-	} from '$lib/components/panels';
+	} from '#lib/components/panels/index.js';
 	import {
 		news,
 		markets,
@@ -33,7 +37,7 @@
 		allNewsItems,
 		fedIndicators,
 		fedNews
-	} from '$lib/stores';
+	} from '#lib/stores/index.js';
 	import {
 		fetchAllNews,
 		fetchAllMarkets,
@@ -44,10 +48,10 @@
 		fetchWorldLeaders,
 		fetchFedIndicators,
 		fetchFedNews
-	} from '$lib/api';
-	import type { Prediction, WhaleTransaction, Contract, Layoff } from '$lib/api';
-	import type { CustomMonitor, WorldLeader } from '$lib/types';
-	import type { PanelId } from '$lib/config';
+	} from '#lib/api/index.js';
+	import type { Prediction, WhaleTransaction, Contract, Layoff } from '#lib/api/index.js';
+	import type { CustomMonitor, WorldLeader } from '#lib/types/index.js';
+	import type { PanelId } from '#lib/config/index.js';
 
 	// Modal state
 	let settingsOpen = $state(false);

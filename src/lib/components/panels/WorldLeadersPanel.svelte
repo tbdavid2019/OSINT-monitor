@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Panel } from '$lib/components/common';
-	import type { WorldLeader } from '$lib/types';
+	import { Panel } from '#lib/components/common/index.js';
+	import type { WorldLeader } from '#lib/types/index.js';
 
 	interface Props {
 		leaders?: WorldLeader[];

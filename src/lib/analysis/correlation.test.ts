@@ -4,7 +4,7 @@
 
 import { describe, it, expect, beforeEach } from 'vitest';
 import { analyzeCorrelations, getCorrelationSummary, clearCorrelationHistory } from './correlation';
-import type { NewsItem } from '$lib/types';
+import type { NewsItem } from '#lib/types/index.js';
 
 describe('Correlation Engine', () => {
 	beforeEach(() => {

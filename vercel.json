@@ -1,5 +1,6 @@
 {
-  "buildCommand": "npm run build",
-  "outputDirectory": "build",
-  "framework": "sveltekit"
+	"buildCommand": "pnpm build",
+	"outputDirectory": "build",
+	"framework": "sveltekit",
+	"installCommand": "corepack pnpm install --frozen-lockfile"
 }

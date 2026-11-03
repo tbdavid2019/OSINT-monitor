@@ -2,7 +2,7 @@
  * RSS feed and news source configuration
  */
 
-import type { NewsCategory } from '$lib/types';
+import type { NewsCategory } from '#lib/types/index.js';
 
 export interface FeedSource {
 	name: string;

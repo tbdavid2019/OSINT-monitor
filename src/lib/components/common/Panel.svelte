@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { Snippet } from 'svelte';
-	import type { PanelId } from '$lib/config';
+	import type { PanelId } from '#lib/config/index.js';
 
 	interface Props {
 		id: PanelId;

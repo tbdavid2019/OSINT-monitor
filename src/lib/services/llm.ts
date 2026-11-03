@@ -1,5 +1,5 @@
-import type { LLMModel } from '$lib/stores/llm';
-import type { NewsLocation } from '$lib/stores/newsLocations';
+import type { LLMModel } from '#lib/stores/llm.js';
+import type { NewsLocation } from '#lib/stores/newsLocations.js';
 
 export async function fetchModels(baseUrl: string, apiKey: string): Promise<LLMModel[]> {
 	const cleanBaseUrl = baseUrl.replace(/\/$/, '');

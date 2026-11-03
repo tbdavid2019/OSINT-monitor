@@ -1,7 +1,7 @@
 <script lang="ts">
 	import '../app.css';
 	import { onMount } from 'svelte';
-	import { llmSettings } from '$lib/stores/llm';
+	import { llmSettings } from '#lib/stores/llm.js';
 
 	interface Props {
 		children: import('svelte').Snippet;

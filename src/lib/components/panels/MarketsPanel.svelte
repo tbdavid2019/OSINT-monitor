@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Panel, MarketItem } from '$lib/components/common';
-	import { indices } from '$lib/stores';
+	import { Panel, MarketItem } from '#lib/components/common/index.js';
+	import { indices } from '#lib/stores/index.js';
 
 	const items = $derived($indices.items);
 	const loading = $derived($indices.loading);

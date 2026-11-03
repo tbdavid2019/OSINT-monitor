@@ -1,7 +1,7 @@
 <script lang="ts">
-	import { Panel, Badge } from '$lib/components/common';
-	import { analyzeCorrelations } from '$lib/analysis/correlation';
-	import type { NewsItem } from '$lib/types';
+	import { Panel, Badge } from '#lib/components/common/index.js';
+	import { analyzeCorrelations } from '#lib/analysis/correlation.js';
+	import type { NewsItem } from '#lib/types/index.js';
 
 	interface Props {
 		news?: NewsItem[];

@@ -3,7 +3,7 @@
  */
 
 import { writable, derived, get } from 'svelte/store';
-import { browser } from '$app/environment';
+import { browser } from '$app/env';
 import {
 	PANELS,
 	NON_DRAGGABLE_PANELS,
@@ -11,7 +11,7 @@ import {
 	ONBOARDING_STORAGE_KEY,
 	PRESET_STORAGE_KEY,
 	type PanelId
-} from '$lib/config';
+} from '#lib/config/index.js';
 
 // Storage keys
 const STORAGE_KEYS = {

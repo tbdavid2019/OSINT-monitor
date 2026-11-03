@@ -1,9 +1,9 @@
 <script lang="ts">
-	import { Panel } from '$lib/components/common';
-	import { llmSettings } from '$lib/stores/llm';
-	import { allNewsItems } from '$lib/stores/news';
-	import { markets } from '$lib/stores/markets';
-	import { generateSummary } from '$lib/services/llm';
+	import { Panel } from '#lib/components/common/index.js';
+	import { llmSettings } from '#lib/stores/llm.js';
+	import { allNewsItems } from '#lib/stores/news.js';
+	import { markets } from '#lib/stores/markets.js';
+	import { generateSummary } from '#lib/services/llm.js';
 
 	let loading = $state(false);
 	let error = $state<string | null>(null);

@@ -2,8 +2,8 @@
  * Narrative tracker - analyzes fringe-to-mainstream narrative propagation
  */
 
-import type { NewsItem } from '$lib/types';
-import { NARRATIVE_PATTERNS, SOURCE_TYPES, type NarrativePattern } from '$lib/config/analysis';
+import type { NewsItem } from '#lib/types/index.js';
+import { NARRATIVE_PATTERNS, SOURCE_TYPES, type NarrativePattern } from '#lib/config/analysis.js';
 
 // Types for narrative results
 export interface NarrativeData {

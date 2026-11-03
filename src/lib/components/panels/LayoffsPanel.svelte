@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Panel } from '$lib/components/common';
-	import { timeAgo } from '$lib/utils';
+	import { Panel } from '#lib/components/common/index.js';
+	import { timeAgo } from '#lib/utils/index.js';
 
 	interface Layoff {
 		company: string;

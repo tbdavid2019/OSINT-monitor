@@ -197,4 +197,3 @@ src/lib/
 ## 致謝
 
 本專案基於 [hipcityreg/situation-monitor](https://github.com/hipcityreg/situation-monitor) 開源專案進行修改與擴充，感謝原作者的貢獻。
-

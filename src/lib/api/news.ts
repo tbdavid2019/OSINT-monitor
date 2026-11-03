@@ -2,10 +2,10 @@
  * News API - Fetch news from GDELT and other sources
  */
 
-import { FEEDS } from '$lib/config/feeds';
-import type { NewsItem, NewsCategory } from '$lib/types';
-import { containsAlertKeyword, detectRegion, detectTopics } from '$lib/config/keywords';
-import { fetchWithProxy, API_DELAYS, logger } from '$lib/config/api';
+import { FEEDS } from '#lib/config/feeds.js';
+import type { NewsItem, NewsCategory } from '#lib/types/index.js';
+import { containsAlertKeyword, detectRegion, detectTopics } from '#lib/config/keywords.js';
+import { fetchWithProxy, API_DELAYS, logger } from '#lib/config/api.js';
 
 /**
  * Simple hash function to generate unique IDs from URLs

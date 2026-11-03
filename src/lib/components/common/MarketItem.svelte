@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { MarketItem as MarketItemType } from '$lib/types';
-	import { formatPercentChange, getChangeClass } from '$lib/utils';
+	import type { MarketItem as MarketItemType } from '#lib/types/index.js';
+	import { formatPercentChange, getChangeClass } from '#lib/utils/index.js';
 
 	interface Props {
 		item: MarketItemType;

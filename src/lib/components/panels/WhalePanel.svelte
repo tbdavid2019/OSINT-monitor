@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { Panel } from '$lib/components/common';
+	import { Panel } from '#lib/components/common/index.js';
 
 	interface WhaleTransaction {
 		coin: string;

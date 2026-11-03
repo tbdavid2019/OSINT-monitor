@@ -1,5 +1,5 @@
 <script lang="ts">
-	import { isRefreshing, lastRefresh } from '$lib/stores';
+	import { isRefreshing, lastRefresh } from '#lib/stores/index.js';
 
 	interface Props {
 		onSettingsClick?: () => void;

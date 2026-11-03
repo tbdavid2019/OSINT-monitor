@@ -1,6 +1,6 @@
 <script lang="ts">
-	import type { SectorPerformance } from '$lib/types';
-	import { formatPercentChange } from '$lib/utils';
+	import type { SectorPerformance } from '#lib/types/index.js';
+	import { formatPercentChange } from '#lib/utils/index.js';
 
 	interface Props {
 		sector: SectorPerformance;

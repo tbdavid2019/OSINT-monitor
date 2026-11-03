@@ -4,7 +4,7 @@
 
 import { describe, it, expect, beforeEach } from 'vitest';
 import { analyzeNarratives, getNarrativeSummary, clearNarrativeHistory } from './narrative';
-import type { NewsItem } from '$lib/types';
+import type { NewsItem } from '#lib/types/index.js';
 
 describe('Narrative Tracker', () => {
 	beforeEach(() => {

@@ -3,7 +3,7 @@
  */
 
 import { writable, derived } from 'svelte/store';
-import type { FedIndicators, FedNewsItem } from '$lib/api/fred';
+import type { FedIndicators, FedNewsItem } from '#lib/api/fred.js';
 
 // ============================================================================
 // State Types

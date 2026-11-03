@@ -2,7 +2,7 @@
  * World Leaders configuration for tracking
  */
 
-import type { WorldLeader } from '$lib/types';
+import type { WorldLeader } from '#lib/types/index.js';
 
 export const WORLD_LEADERS: WorldLeader[] = [
 	// United States

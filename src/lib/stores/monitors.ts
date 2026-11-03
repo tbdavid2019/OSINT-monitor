@@ -3,8 +3,8 @@
  */
 
 import { writable, derived, get } from 'svelte/store';
-import { browser } from '$app/environment';
-import type { CustomMonitor, NewsItem } from '$lib/types';
+import { browser } from '$app/env';
+import type { CustomMonitor, NewsItem } from '#lib/types/index.js';
 
 const STORAGE_KEY = 'customMonitors';
 const MAX_MONITORS = 20;

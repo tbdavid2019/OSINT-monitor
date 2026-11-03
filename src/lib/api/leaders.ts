@@ -2,9 +2,9 @@
  * World Leaders API - Fetch news for world leaders from GDELT
  */
 
-import { WORLD_LEADERS } from '$lib/config/leaders';
-import type { WorldLeader, LeaderNews } from '$lib/types';
-import { CORS_PROXY_URL, logger } from '$lib/config/api';
+import { WORLD_LEADERS } from '#lib/config/leaders.js';
+import type { WorldLeader, LeaderNews } from '#lib/types/index.js';
+import { CORS_PROXY_URL, logger } from '#lib/config/api.js';
 
 interface GdeltArticle {
 	title: string;

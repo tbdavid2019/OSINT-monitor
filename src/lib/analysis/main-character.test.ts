@@ -8,7 +8,7 @@ import {
 	getMainCharacterSummary,
 	calculateDominance
 } from './main-character';
-import type { NewsItem } from '$lib/types';
+import type { NewsItem } from '#lib/types/index.js';
 
 describe('Main Character Analysis', () => {
 	it('should return empty results for empty news', () => {

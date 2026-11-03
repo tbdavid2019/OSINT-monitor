@@ -1,8 +1,8 @@
 <script lang="ts">
-	import { Panel, Badge } from '$lib/components/common';
-	import { timeAgo } from '$lib/utils';
-	import type { CustomMonitor } from '$lib/types';
-	import type { MonitorMatch } from '$lib/stores/monitors';
+	import { Panel, Badge } from '#lib/components/common/index.js';
+	import { timeAgo } from '#lib/utils/index.js';
+	import type { CustomMonitor } from '#lib/types/index.js';
+	import type { MonitorMatch } from '#lib/stores/monitors.js';
 
 	interface Props {
 		monitors?: CustomMonitor[];

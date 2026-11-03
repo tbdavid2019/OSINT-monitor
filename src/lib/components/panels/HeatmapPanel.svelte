@@ -1,6 +1,6 @@
 <script lang="ts">
-	import { Panel, HeatmapCell } from '$lib/components/common';
-	import { sectors } from '$lib/stores';
+	import { Panel, HeatmapCell } from '#lib/components/common/index.js';
+	import { sectors } from '#lib/stores/index.js';
 
 	const items = $derived($sectors.items);
 	const loading = $derived($sectors.loading);

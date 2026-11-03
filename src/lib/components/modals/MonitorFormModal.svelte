@@ -1,7 +1,7 @@
 <script lang="ts">
 	import Modal from './Modal.svelte';
-	import { monitors } from '$lib/stores';
-	import type { CustomMonitor } from '$lib/types';
+	import { monitors } from '#lib/stores/index.js';
+	import type { CustomMonitor } from '#lib/types/index.js';
 
 	interface Props {
 		open: boolean;
