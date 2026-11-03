@@ -49,6 +49,7 @@
   },
   "overrides": {
     "minimatch": "11.0.1",
-    "svelte": "$svelte"
+    "svelte": "$svelte",
+    "deepmerge": "npm:@stackline/deepmerge@1.1.0"
   }
 }
